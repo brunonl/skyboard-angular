@@ -4,27 +4,33 @@
         padding: 10px;
         background-color: rgba(38, 38, 42, 0.5);
         margin-bottom: 10px;
+
         &__title {
             @extend .lato-black;
             font-weight: 700;
             margin: 0;
         }
     }
+
     &__row {
         display: flex;
         min-height: 65vh;
     }
+
     &__col {
         height: 100%;
         width: 100%;
-        background-color:$black-70;
+        background-color: $black-70;
+
         &__title {
             @extend .lato-bold;
             padding: 10px;
             font-weight: 700;
             font-size: 14px;
             background-color: $black-50;
+            color: $white;
         }
+
         &__content {
             padding: 10px;
         }

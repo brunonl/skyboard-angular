@@ -4,13 +4,16 @@
     color: $black;
     font-size: 12px;
     border-radius: 0;
-    &:hover,&:active,&:focus {
+
+    &:hover,
+    &:active,
+    &:focus {
         background-color: $primary;
         border-color: $primary;
         color: $black;
         box-shadow: rgb(0 0 0 / 15%) 0px 0px 0px;
         filter: brightness(1.25);
-        transition: box-shadow 300ms ease 0s, filter 300ms ease 0s; 
+        transition: box-shadow 300ms ease 0s, filter 300ms ease 0s;
     }
 }
 
@@ -20,13 +23,16 @@
     color: $white;
     font-size: 12px;
     border-radius: 0;
-    &:hover,&:active,&:focus {
+
+    &:hover,
+    &:active,
+    &:focus {
         background-color: $secondary;
         border-color: $white;
         color: $white;
         box-shadow: rgb(0 0 0 / 15%) 0px 0px 0px;
         filter: brightness(1.25);
-        transition: box-shadow 300ms ease 0s, filter 300ms ease 0s; 
+        transition: box-shadow 300ms ease 0s, filter 300ms ease 0s;
     }
 }
 
@@ -36,12 +42,15 @@
     color: $white;
     font-size: 12px;
     border-radius: 0;
-    &:hover,&:active,&:focus {
+
+    &:hover,
+    &:active,
+    &:focus {
         background-color: $danger;
         border-color: $danger;
         color: $white;
         box-shadow: rgb(0 0 0 / 15%) 0px 0px 0px;
         filter: brightness(1.25);
-        transition: box-shadow 300ms ease 0s, filter 300ms ease 0s; 
+        transition: box-shadow 300ms ease 0s, filter 300ms ease 0s;
     }
 }

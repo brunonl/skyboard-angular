@@ -5,8 +5,25 @@ header {
         height: 70px;
         padding: 10px;
         background-color: $black-70;
+
         &__logo {
-            width: 120px; 
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+
+            &-sky {
+                font-size: 24px;
+                font-weight: 700;
+                color: $primary;
+                letter-spacing: 1px;
+            }
+
+            &-board {
+                font-size: 24px;
+                font-weight: 700;
+                color: $white;
+                letter-spacing: 1px;
+            }
         }
     }
 }
