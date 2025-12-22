@@ -1,0 +1,22 @@
+<div class="card__lc">
+    <div class="card__lc__toleft" (click)="toPrev()" [ngClass]="{'disabled--arrow': card?.lista == 'ToDo'}">
+        <i class="bi bi-arrow-left-circle"></i>
+    </div>
+    <div class="card__lc__content">
+        <div class="card__lc__content__title">
+            {{card?.titulo}}
+        </div>
+        <div class="card__lc__content__description">
+            <p>{{card?.conteudo}}</p>   
+        </div>
+        <div class="card__lc__content__footer">
+            <button class="btn btn-sm btn-danger me-2" type="button" (click)="toDelete()">Delete</button>
+            <button class="btn btn-sm btn-primary me-2" type="button" (click)="toEdit()">Edit</button>
+            <button class="btn btn-sm btn-primary" type="button" (click)="toOpen()">Open</button>
+        </div>
+    </div>
+    <div class="card__lc__toright" (click)="toNext()" [ngClass]="{'disabled--arrow': card?.lista == 'Done'}">
+        <i class="bi bi-arrow-right-circle"></i>
+    </div>
+
+</div>

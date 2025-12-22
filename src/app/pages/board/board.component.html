@@ -1,0 +1,63 @@
+<section class="board">
+	<div class="board__nav">
+		<p class="board__nav__title">Board - Space X</p>
+	</div>
+
+	<div class="row board__row">
+		<div class="col-sm-4 p-2">
+			<div class="board__col">
+				<div class="board__col__title">To Do</div>
+				<div class="board__col__content">
+					<button class="btn btn-sm btn-primary mb-2 w-100" type="button" (click)="openModalAdd()">
+						Add new card
+					</button>
+
+					<div *ngFor="let card of toDoList">
+						<app-card	
+							[card]="card"
+							(goDelete)="openModalDelete($event)" 
+							(goToNext)="goToDoingList($event)"
+							(goEdit)="openModalEdit($event)"
+							(goOpen)="openModalOpen($event)">
+						</app-card>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="col-sm-4 p-2">
+			<div class="board__col">
+				<div class="board__col__title">Doing</div>
+				<div class="board__col__content">
+
+					<div *ngFor="let card of doingList">
+						<app-card 
+							[card]="card"
+							(goDelete)="openModalDelete($event)" 
+							(goToPrev)="backToDoList($event)"
+							(goToNext)="goToDoneList($event)"
+							(goEdit)="openModalEdit($event)"
+							(goOpen)="openModalOpen($event)">
+						</app-card>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="col-sm-4 p-2">
+			<div class="board__col">
+				<div class="board__col__title">Done</div>
+				<div class="board__col__content">
+					
+					<div *ngFor="let card of doneList">
+						<app-card 
+							[card]="card"
+							(goDelete)="openModalDelete($event)" 
+							(goToPrev)="backToDoingList($event)"
+							(goEdit)="openModalEdit($event)"
+							(goOpen)="openModalOpen($event)">
+						</app-card>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>

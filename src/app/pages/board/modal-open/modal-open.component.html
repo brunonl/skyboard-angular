@@ -1,0 +1,14 @@
+<div class="modal-header">
+	<div class="pull-left">
+		<h4>{{card?.titulo}}</h4>
+	</div>
+	<button type="button" class="btn-close close pull-right" aria-label="Close" (click)="bsModalRef.hide()">
+		<span aria-hidden="true" class="visually-hidden">&times;</span>
+	</button>
+</div>
+<div class="modal-body">
+	<p>{{card?.conteudo}}</p>
+</div>
+<div class="modal-footer">
+	<button type="text" class="btn btn-secondary" (click)="bsModalRef.hide()">Back</button>
+</div>

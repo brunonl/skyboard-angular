@@ -1,0 +1,12 @@
+header {
+    .navbar__lc {
+        position: fixed;
+        width: 100%;
+        height: 70px;
+        padding: 10px;
+        background-color: $black-70;
+        &__logo {
+            width: 120px; 
+        }
+    }
+}

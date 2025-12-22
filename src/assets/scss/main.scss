@@ -1,0 +1,17 @@
+@import 'bootstrap-scss/bootstrap';
+
+@import '_variables.scss';
+@import '_forms.scss';
+@import '_buttons.scss';
+@import '_general.scss';
+@import '_fonts.scss';
+@import '_icons.scss';
+
+//Components
+@import 'components/_modal.scss';
+@import 'components/_card.scss';
+@import 'components/_header.scss';
+@import 'components/_footer.scss';
+
+//Pages
+@import 'pages/_board.scss';

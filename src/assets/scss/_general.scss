@@ -1,0 +1,39 @@
+html {
+    position: relative;
+    min-height: 100%;
+}
+
+html,
+body {
+    @extend .lato-regular;
+    background: $background;
+    color: $white;
+}
+
+main {
+    padding: 90px 0 55px 0;
+}
+
+* {
+    scrollbar-width: thin;
+    scrollbar-color: rgba(0, 0, 0, 0.3) rgba(0, 0, 0, 0.1);
+}
+
+*::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+}
+
+*::-webkit-scrollbar-corner {
+    background: rgba(0, 0, 0, 0);
+}
+
+*::-webkit-scrollbar-track {
+    box-shadow: none;
+    background-color: rgb(64, 64, 68);
+    border-radius: 10px;
+}  
+*::-webkit-scrollbar-thumb {
+    border-radius: 20px;
+    background-color: rgb(38, 38, 42);
+}

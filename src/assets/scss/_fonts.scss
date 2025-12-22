@@ -1,0 +1,27 @@
+$way-font-path: '/assets/fonts' !default;
+
+@mixin fontFace($family,$url){
+  @font-face {
+    font-family: $family;
+    src: url('#{$url}');
+  }
+}
+
+@include fontFace('lato-regular', '#{$way-font-path}/Lato/Lato-Regular.ttf');
+@include fontFace('lato-bold', '#{$way-font-path}/Lato/Lato-Bold.ttf');
+@include fontFace('lato-black', '#{$way-font-path}/Lato/Lato-Black.ttf');
+
+.lato-regular {
+  font-family: 'lato-regular' !important;
+  font-weight: 400;
+}
+
+.lato-bold {
+  font-family: 'lato-bold' !important;
+  font-weight: 700;
+}
+
+.lato-black {
+  font-family: 'lato-black' !important;
+  font-weight: 700;
+}

@@ -1,0 +1,25 @@
+<form #formAdd="ngForm" [formGroup]="addForm" (submit)="addCard()">
+	<div class="modal-header">
+		<div class="pull-left">
+			<input type="text" class="form-control" formControlName="titulo" placeholder="Type the title here.." #focusInput>
+
+			<div *ngIf="formAdd.submitted">
+				<app-vmessages *ngIf="addForm.controls['titulo'].errors?.['required']" text="Title is required"></app-vmessages>
+			</div>
+		</div>
+		<button type="button" class="btn-close close pull-right" aria-label="Close" (click)="bsModalRef.hide()">
+			<span aria-hidden="true" class="visually-hidden">&times;</span>
+		</button>
+	</div>
+	<div class="modal-body">
+		<textarea rows="5" class="form-control" formControlName="conteudo" placeholder="Type the description here.."></textarea>
+
+		<div *ngIf="formAdd.submitted">
+			<app-vmessages *ngIf="addForm.controls['conteudo'].errors?.['required']" text="Content is required"></app-vmessages>
+		</div>
+	</div>
+	<div class="modal-footer">
+		<button type="text" class="btn btn-secondary" (click)="bsModalRef.hide()">Back</button>
+		<button type="submit" class="btn btn-primary">Add Card</button>
+	</div>
+</form>
