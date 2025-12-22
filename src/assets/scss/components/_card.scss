@@ -5,6 +5,8 @@
     background-color: $black-50;
     margin-bottom: 10px;
     border-radius: 3px;
+    cursor: move;
+    /* Adicionar cursor de drag */
 
     &__toleft,
     &__toright {
@@ -74,10 +76,14 @@
 }
 
 // Drag and Drop styles
+.drag-item {
+    cursor: move;
+}
+
 .cdk-drag-preview {
     box-sizing: border-box;
-    box-shadow: 0 5px 20px rgba(0, 174, 239, 0.3);
-    opacity: 0.9;
+    box-shadow: 0 5px 20px rgba(0, 174, 239, 0.5);
+    opacity: 0.8;
 }
 
 .cdk-drag-placeholder {

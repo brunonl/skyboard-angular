@@ -20,6 +20,8 @@ export class BoardComponent implements OnInit {
 	doingList: Card[] = [];
 	doneList: Card[] = [];
 
+	isLoading = false;
+
 	modalRef?: BsModalRef;
 
 	addForm!: FormGroup;
@@ -122,40 +124,48 @@ export class BoardComponent implements OnInit {
 	async goToDoingList(card: Card) {
 		let foundCard = this.searchCardFromList(card.id, this.toDoList);
 		if (foundCard) {
+			this.isLoading = true;
 			this.setListOnCard(foundCard, 'Doing');
 			await this.cardService.updateCard(foundCard);
 			this.addCardToList(foundCard, this.doingList);
 			this.toDoList = this.removeCardFromList(card.id, this.toDoList);
+			this.isLoading = false;
 		}
 	}
 
 	async goToDoneList(card: Card) {
 		let foundCard = this.searchCardFromList(card.id, this.doingList);
 		if (foundCard) {
+			this.isLoading = true;
 			this.setListOnCard(foundCard, 'Done');
 			await this.cardService.updateCard(foundCard);
 			this.doneList.push(foundCard);
 			this.doingList = this.removeCardFromList(card.id, this.doingList);
+			this.isLoading = false;
 		}
 	}
 
 	async backToDoList(card: Card) {
 		let foundCard = this.searchCardFromList(card.id, this.doingList);
 		if (foundCard) {
+			this.isLoading = true;
 			this.setListOnCard(foundCard, 'ToDo');
 			await this.cardService.updateCard(foundCard);
 			this.addCardToList(foundCard, this.toDoList);
 			this.doingList = this.removeCardFromList(card.id, this.doingList);
+			this.isLoading = false;
 		}
 	}
 
 	async backToDoingList(card: Card) {
 		let foundCard = this.searchCardFromList(card.id, this.doneList);
 		if (foundCard) {
+			this.isLoading = true;
 			this.setListOnCard(foundCard, 'Doing');
 			await this.cardService.updateCard(foundCard);
 			this.addCardToList(foundCard, this.doingList);
 			this.doneList = this.removeCardFromList(card.id, this.doneList);
+			this.isLoading = false;
 		}
 	}
 
@@ -181,18 +191,18 @@ export class BoardComponent implements OnInit {
 
 	async drop(event: CdkDragDrop<Card[]>, targetList: string) {
 		if (event.previousContainer === event.container) {
-			// Reordenar dentro da mesma lista
 			moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
 		} else {
-			// Mover para outra lista
 			const card = event.previousContainer.data[event.previousIndex];
 			card.lista = targetList;
 
-			// Persistir no Supabase
+			this.isLoading = true;
 			try {
 				await this.cardService.updateCard(card);
 			} catch (error) {
 				console.error('Erro ao atualizar card:', error);
+			} finally {
+				this.isLoading = false;
 			}
 
 			transferArrayItem(

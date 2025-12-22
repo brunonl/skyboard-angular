@@ -1,14 +1,17 @@
 <section class="board">
+	<div *ngIf="isLoading" class="board__loading">
+		<div class="spinner"></div>
+	</div>
+
 	<div class="board__nav">
-		<p class="board__nav__title">Meu Quadro</p>
+		<p class="board__nav__title">My Board</p>
 	</div>
 
 	<div class="row board__row" cdkDropListGroup>
 		<div class="col-sm-4 p-2">
 			<div class="board__col">
 				<div class="board__col__title">To Do</div>
-				<div class="board__col__content" cdkDropList #todoList="cdkDropList" [cdkDropListData]="toDoList"
-					[cdkDropListConnectedTo]="[doingDropList, doneDropList]"
+				<div class="board__col__content" cdkDropList [cdkDropListData]="toDoList"
 					(cdkDropListDropped)="drop($event, 'ToDo')">
 
 					<button class="btn btn-sm btn-primary mb-2 w-100" type="button" (click)="openModalAdd()">
@@ -23,11 +26,12 @@
 				</div>
 			</div>
 		</div>
+
 		<div class="col-sm-4 p-2">
 			<div class="board__col">
 				<div class="board__col__title">Doing</div>
-				<div class="board__col__content" cdkDropList #doingDropList="cdkDropList" [cdkDropListData]="doingList"
-					[cdkDropListConnectedTo]="[todoList, doneDropList]" (cdkDropListDropped)="drop($event, 'Doing')">
+				<div class="board__col__content" cdkDropList [cdkDropListData]="doingList"
+					(cdkDropListDropped)="drop($event, 'Doing')">
 
 					<div *ngFor="let card of doingList" cdkDrag>
 						<app-card [card]="card" (goDelete)="openModalDelete($event)" (goToPrev)="backToDoList($event)"
@@ -38,11 +42,12 @@
 				</div>
 			</div>
 		</div>
+
 		<div class="col-sm-4 p-2">
 			<div class="board__col">
 				<div class="board__col__title">Done</div>
-				<div class="board__col__content" cdkDropList #doneDropList="cdkDropList" [cdkDropListData]="doneList"
-					[cdkDropListConnectedTo]="[todoList, doingDropList]" (cdkDropListDropped)="drop($event, 'Done')">
+				<div class="board__col__content" cdkDropList [cdkDropListData]="doneList"
+					(cdkDropListDropped)="drop($event, 'Done')">
 
 					<div *ngFor="let card of doneList" cdkDrag>
 						<app-card [card]="card" (goDelete)="openModalDelete($event)"

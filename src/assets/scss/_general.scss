@@ -1,9 +1,9 @@
-html {
-    position: relative;
-    min-height: 100%;
+html,
+body {
+    height: 100%;
+    margin: 0;
 }
 
-html,
 body {
     @extend .lato-regular;
     background: $background;
@@ -11,7 +11,8 @@ body {
 }
 
 main {
-    padding: 90px 0 55px 0;
+    padding: 85px 10px 60px 10px;
+    min-height: calc(100vh - 70px);
 }
 
 * {
@@ -20,21 +21,13 @@ main {
 }
 
 *::-webkit-scrollbar {
-    width: 10px;
-    height: 10px;
-}
-
-*::-webkit-scrollbar-corner {
-    background: rgba(0, 0, 0, 0);
+    width: 8px;
 }
 
 *::-webkit-scrollbar-track {
-    box-shadow: none;
     background-color: rgb(64, 64, 68);
-    border-radius: 10px;
 }
 
 *::-webkit-scrollbar-thumb {
-    border-radius: 20px;
     background-color: rgb(38, 38, 42);
 }
