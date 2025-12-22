@@ -32,9 +32,12 @@ export class BoardComponent implements OnInit {
 	) { }
 
 	ngOnInit(): void {
+		const allCards: Card[] = this.activatedRoute.snapshot.data['cards'] || [];
 
-		this.toDoList = this.activatedRoute.snapshot.data['cards'];
-
+		// Distribuir cards nas listas corretas baseado em card.lista
+		this.toDoList = allCards.filter(card => card.lista === 'ToDo' || !card.lista);
+		this.doingList = allCards.filter(card => card.lista === 'Doing');
+		this.doneList = allCards.filter(card => card.lista === 'Done');
 	}
 
 	openModalOpen(card: Card) {
@@ -116,32 +119,44 @@ export class BoardComponent implements OnInit {
 		}
 	}
 
-	goToDoingList(card: Card) {
+	async goToDoingList(card: Card) {
 		let foundCard = this.searchCardFromList(card.id, this.toDoList);
-		this.setListOnCard(foundCard as Card, 'Doing');
-		this.addCardToList(foundCard as Card, this.doingList)
-		this.toDoList = this.removeCardFromList(card.id, this.toDoList);
+		if (foundCard) {
+			this.setListOnCard(foundCard, 'Doing');
+			await this.cardService.updateCard(foundCard);
+			this.addCardToList(foundCard, this.doingList);
+			this.toDoList = this.removeCardFromList(card.id, this.toDoList);
+		}
 	}
 
-	goToDoneList(card: Card) {
+	async goToDoneList(card: Card) {
 		let foundCard = this.searchCardFromList(card.id, this.doingList);
-		this.setListOnCard(foundCard as Card, 'Done');
-		this.doneList.push(foundCard as Card);
-		this.doingList = this.removeCardFromList(card.id, this.doingList);
+		if (foundCard) {
+			this.setListOnCard(foundCard, 'Done');
+			await this.cardService.updateCard(foundCard);
+			this.doneList.push(foundCard);
+			this.doingList = this.removeCardFromList(card.id, this.doingList);
+		}
 	}
 
-	backToDoList(card: Card) {
+	async backToDoList(card: Card) {
 		let foundCard = this.searchCardFromList(card.id, this.doingList);
-		this.setListOnCard(foundCard as Card, 'ToDo');
-		this.addCardToList(foundCard as Card, this.toDoList)
-		this.doingList = this.removeCardFromList(card.id, this.doingList);
+		if (foundCard) {
+			this.setListOnCard(foundCard, 'ToDo');
+			await this.cardService.updateCard(foundCard);
+			this.addCardToList(foundCard, this.toDoList);
+			this.doingList = this.removeCardFromList(card.id, this.doingList);
+		}
 	}
 
-	backToDoingList(card: Card) {
+	async backToDoingList(card: Card) {
 		let foundCard = this.searchCardFromList(card.id, this.doneList);
-		this.setListOnCard(foundCard as Card, 'Doing');
-		this.addCardToList(foundCard as Card, this.doingList)
-		this.doneList = this.removeCardFromList(card.id, this.doneList);
+		if (foundCard) {
+			this.setListOnCard(foundCard, 'Doing');
+			await this.cardService.updateCard(foundCard);
+			this.addCardToList(foundCard, this.doingList);
+			this.doneList = this.removeCardFromList(card.id, this.doneList);
+		}
 	}
 
 	searchCardFromList(id: string, list: Card[]) {
