@@ -3,22 +3,21 @@
 		<p class="board__nav__title">Meu Quadro</p>
 	</div>
 
-	<div class="row board__row">
+	<div class="row board__row" cdkDropListGroup>
 		<div class="col-sm-4 p-2">
 			<div class="board__col">
 				<div class="board__col__title">To Do</div>
-				<div class="board__col__content">
+				<div class="board__col__content" cdkDropList #todoList="cdkDropList" [cdkDropListData]="toDoList"
+					[cdkDropListConnectedTo]="[doingDropList, doneDropList]"
+					(cdkDropListDropped)="drop($event, 'ToDo')">
+
 					<button class="btn btn-sm btn-primary mb-2 w-100" type="button" (click)="openModalAdd()">
 						Add new card
 					</button>
 
-					<div *ngFor="let card of toDoList">
-						<app-card	
-							[card]="card"
-							(goDelete)="openModalDelete($event)" 
-							(goToNext)="goToDoingList($event)"
-							(goEdit)="openModalEdit($event)"
-							(goOpen)="openModalOpen($event)">
+					<div *ngFor="let card of toDoList" cdkDrag>
+						<app-card [card]="card" (goDelete)="openModalDelete($event)" (goToNext)="goToDoingList($event)"
+							(goEdit)="openModalEdit($event)" (goOpen)="openModalOpen($event)">
 						</app-card>
 					</div>
 				</div>
@@ -27,15 +26,12 @@
 		<div class="col-sm-4 p-2">
 			<div class="board__col">
 				<div class="board__col__title">Doing</div>
-				<div class="board__col__content">
+				<div class="board__col__content" cdkDropList #doingDropList="cdkDropList" [cdkDropListData]="doingList"
+					[cdkDropListConnectedTo]="[todoList, doneDropList]" (cdkDropListDropped)="drop($event, 'Doing')">
 
-					<div *ngFor="let card of doingList">
-						<app-card 
-							[card]="card"
-							(goDelete)="openModalDelete($event)" 
-							(goToPrev)="backToDoList($event)"
-							(goToNext)="goToDoneList($event)"
-							(goEdit)="openModalEdit($event)"
+					<div *ngFor="let card of doingList" cdkDrag>
+						<app-card [card]="card" (goDelete)="openModalDelete($event)" (goToPrev)="backToDoList($event)"
+							(goToNext)="goToDoneList($event)" (goEdit)="openModalEdit($event)"
 							(goOpen)="openModalOpen($event)">
 						</app-card>
 					</div>
@@ -45,14 +41,12 @@
 		<div class="col-sm-4 p-2">
 			<div class="board__col">
 				<div class="board__col__title">Done</div>
-				<div class="board__col__content">
-					
-					<div *ngFor="let card of doneList">
-						<app-card 
-							[card]="card"
-							(goDelete)="openModalDelete($event)" 
-							(goToPrev)="backToDoingList($event)"
-							(goEdit)="openModalEdit($event)"
+				<div class="board__col__content" cdkDropList #doneDropList="cdkDropList" [cdkDropListData]="doneList"
+					[cdkDropListConnectedTo]="[todoList, doingDropList]" (cdkDropListDropped)="drop($event, 'Done')">
+
+					<div *ngFor="let card of doneList" cdkDrag>
+						<app-card [card]="card" (goDelete)="openModalDelete($event)"
+							(goToPrev)="backToDoingList($event)" (goEdit)="openModalEdit($event)"
 							(goOpen)="openModalOpen($event)">
 						</app-card>
 					</div>

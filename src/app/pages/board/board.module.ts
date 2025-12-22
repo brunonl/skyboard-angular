@@ -10,6 +10,7 @@ import { ModalDeleteComponent } from './modal-delete/modal-delete.component';
 import { ModalEditComponent } from './modal-edit/modal-edit.component';
 import { ModalOpenComponent } from './modal-open/modal-open.component';
 import { VMessagesModule } from 'src/app/shared/components/vmessages/vmessages.module';
+import { DragDropModule } from '@angular/cdk/drag-drop';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { VMessagesModule } from 'src/app/shared/components/vmessages/vmessages.m
     ReactiveFormsModule,
     FormsModule,
     ModalModule.forRoot(),
-    VMessagesModule
+    VMessagesModule,
+    DragDropModule
   ]
 })
 export class BoardModule { }

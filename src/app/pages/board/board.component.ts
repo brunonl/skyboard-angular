@@ -8,6 +8,7 @@ import { ModalAddComponent } from './modal-add/modal-add.component';
 import { ModalDeleteComponent } from './modal-delete/modal-delete.component';
 import { ModalEditComponent } from './modal-edit/modal-edit.component';
 import { ModalOpenComponent } from './modal-open/modal-open.component';
+import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
 
 @Component({
 	selector: 'app-board',
@@ -60,7 +61,7 @@ export class BoardComponent implements OnInit {
 		const initialState: ModalOptions = {
 			initialState: {
 				card: card,
-				onEdit:this.updateCardBoardOnCallbackService.bind(this)
+				onEdit: this.updateCardBoardOnCallbackService.bind(this)
 			}
 		};
 		this.modalRef = this.modalService.show(ModalEditComponent, initialState);
@@ -79,40 +80,40 @@ export class BoardComponent implements OnInit {
 	}
 
 	deleteCardBoardOnCallbackService(card: Card) {
-		switch ( card.lista ) {
+		switch (card.lista) {
 			case 'ToDo':
-				this.toDoList = this.removeCardFromList(card.id,this.toDoList);
+				this.toDoList = this.removeCardFromList(card.id, this.toDoList);
 				break;
 			case 'Doing':
-				this.doingList = this.removeCardFromList(card.id,this.doingList);
+				this.doingList = this.removeCardFromList(card.id, this.doingList);
 				break;
 			case 'Done':
-				this.doneList = this.removeCardFromList(card.id,this.doneList);
+				this.doneList = this.removeCardFromList(card.id, this.doneList);
 				break;
-			default: 
+			default:
 				throw new Error("Error on delete from list callbackDeleted");
 				break;
-		 }
+		}
 	}
 
 	updateCardBoardOnCallbackService(card: Card) {
-		switch ( card.lista ) {
+		switch (card.lista) {
 			case 'ToDo':
-				this.toDoList = this.removeCardFromList(card.id,this.toDoList);
+				this.toDoList = this.removeCardFromList(card.id, this.toDoList);
 				this.addCardToList(card, this.toDoList);
 				break;
 			case 'Doing':
-				this.doingList = this.removeCardFromList(card.id,this.doingList);
+				this.doingList = this.removeCardFromList(card.id, this.doingList);
 				this.addCardToList(card, this.doingList);
 				break;
 			case 'Done':
-				this.doneList = this.removeCardFromList(card.id,this.doneList);
+				this.doneList = this.removeCardFromList(card.id, this.doneList);
 				this.addCardToList(card, this.doneList);
 				break;
-			default: 
+			default:
 				throw new Error("Error on delete from list callbackDeleted");
 				break;
-		 }
+		}
 	}
 
 	goToDoingList(card: Card) {
@@ -161,6 +162,31 @@ export class BoardComponent implements OnInit {
 
 	openModal(template: TemplateRef<any>) {
 		this.modalRef = this.modalService.show(template);
+	}
+
+	async drop(event: CdkDragDrop<Card[]>, targetList: string) {
+		if (event.previousContainer === event.container) {
+			// Reordenar dentro da mesma lista
+			moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
+		} else {
+			// Mover para outra lista
+			const card = event.previousContainer.data[event.previousIndex];
+			card.lista = targetList;
+
+			// Persistir no Supabase
+			try {
+				await this.cardService.updateCard(card);
+			} catch (error) {
+				console.error('Erro ao atualizar card:', error);
+			}
+
+			transferArrayItem(
+				event.previousContainer.data,
+				event.container.data,
+				event.previousIndex,
+				event.currentIndex
+			);
+		}
 	}
 
 }
