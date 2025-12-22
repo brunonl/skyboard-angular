@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import { Resolve, ActivatedRouteSnapshot, RouterStateSnapshot } from "@angular/router";
+import { ActivatedRouteSnapshot, RouterStateSnapshot } from "@angular/router";
 import { Card } from "../interfaces/card";
 import { CardService } from "../services/card.service";
 
@@ -12,7 +12,7 @@ import { CardService } from "../services/card.service";
 @Injectable({
     providedIn: 'root'
 })
-export class BoardResolver implements Resolve<Promise<Card[]>> {
+export class BoardResolver  {
 
     constructor(private cardService: CardService) { }
 
