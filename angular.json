@@ -31,7 +31,12 @@
               "./node_modules/bootstrap-icons/font/bootstrap-icons.scss",
               "src/styles.scss"
             ],
-            "scripts": []
+            "scripts": [],
+            "stylePreprocessorOptions": {
+              "includePaths": [
+                "src/assets/scss"
+              ]
+            }
           },
           "configurations": {
             "production": {
@@ -70,10 +75,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "kanban-angular:build:production"
+              "buildTarget": "kanban-angular:build:production"
             },
             "development": {
-              "browserTarget": "kanban-angular:build:development"
+              "buildTarget": "kanban-angular:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -81,7 +86,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "kanban-angular:build"
+            "buildTarget": "kanban-angular:build"
           }
         },
         "test": {
