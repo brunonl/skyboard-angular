@@ -1,19 +1,36 @@
-// Bootstrap from npm (v5.3.8) - updated version without deprecation warnings
-@import 'bootstrap/scss/bootstrap';
+// ============================================
+// Main SCSS Entry Point
+// Organized structure separating vendor from project styles
+// ============================================
 
-// Custom styles
-@import 'variables';
-@import 'forms';
-@import 'buttons';
-@import 'general';
-@import 'fonts';
-@import 'icons';
+// ============================================
+// 1. VENDOR - Third-party libraries (Bootstrap)
+// ============================================
+@import 'bootstrap-scss/bootstrap';
 
-// Components
+// ============================================
+// 2. BASE - Project foundation
+// ============================================
+@import 'variables'; // Custom variables (colors, spacing, etc.)
+@import 'fonts'; // Font-face declarations
+@import 'general'; // Reset, body, scrollbars, etc.
+
+// ============================================
+// 3. OVERRIDES - Bootstrap customizations
+// ============================================
+@import 'forms'; // Form controls overrides
+@import 'buttons'; // Button style overrides
+@import 'icons'; // Icon styles
+
+// ============================================
+// 4. COMPONENTS - Reusable UI components
+// ============================================
 @import 'components/modal';
 @import 'components/card';
 @import 'components/header';
 @import 'components/footer';
 
-// Pages
+// ============================================
+// 5. PAGES - Page-specific styles
+// ============================================
 @import 'pages/board';

@@ -1,0 +1,32 @@
+// ============================================
+// Bootstrap 5 - Selective Imports
+// Only importing what the project uses
+// ============================================
+
+// 1. Required Bootstrap core
+@import 'bootstrap/scss/functions';
+@import 'bootstrap/scss/variables';
+@import 'bootstrap/scss/variables-dark';
+@import 'bootstrap/scss/maps';
+@import 'bootstrap/scss/mixins';
+@import 'bootstrap/scss/utilities';
+
+// 2. Root & Reboot (base styles)
+@import 'bootstrap/scss/root';
+@import 'bootstrap/scss/reboot';
+
+// 3. Layout - Grid system
+@import 'bootstrap/scss/containers';
+@import 'bootstrap/scss/grid';
+
+// 4. Components used in the project
+@import 'bootstrap/scss/buttons';
+@import 'bootstrap/scss/button-group';
+@import 'bootstrap/scss/navbar';
+@import 'bootstrap/scss/nav';
+@import 'bootstrap/scss/modal';
+@import 'bootstrap/scss/close';
+
+// 5. Helpers & Utilities
+@import 'bootstrap/scss/helpers';
+@import 'bootstrap/scss/utilities/api';

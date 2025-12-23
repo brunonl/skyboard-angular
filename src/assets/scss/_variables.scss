@@ -1,8 +1,16 @@
+// ============================================
+// Custom Variables
+// Project color palette and design tokens
+// ============================================
+
+// Brand Colors
 $primary: #01c8e8;
-$secondary: rgb(23, 23, 26);
-$danger: rgb(219, 25, 43);
+$secondary: #17171a;
+$danger: #db192b;
 
-$background: linear-gradient(0deg, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), rgb(38, 38, 42);
+// Background
+$background: linear-gradient(0deg, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), #26262a;
 
-$black-70: rgb(38, 38, 42);
-$black-50: rgb(44, 44, 50);
+// Dark shades
+$black-70: #26262a;
+$black-50: #2c2c32;
