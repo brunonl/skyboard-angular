@@ -4,8 +4,9 @@ import { Card } from 'src/app/interfaces/card';
 import { CardService } from 'src/app/services/card.service';
 
 @Component({
-	selector: 'app-modal-delete',
-	templateUrl: './modal-delete.component.html'
+    selector: 'app-modal-delete',
+    templateUrl: './modal-delete.component.html',
+    standalone: false
 })
 export class ModalDeleteComponent implements OnInit {
 

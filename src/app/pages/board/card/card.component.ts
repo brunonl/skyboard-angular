@@ -2,8 +2,9 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Card } from 'src/app/interfaces/card';
 
 @Component({
-  selector: 'app-card',
-  templateUrl: './card.component.html'
+    selector: 'app-card',
+    templateUrl: './card.component.html',
+    standalone: false
 })
 export class CardComponent implements OnInit {
 

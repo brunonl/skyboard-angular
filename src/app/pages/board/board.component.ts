@@ -11,8 +11,9 @@ import { ModalOpenComponent } from './modal-open/modal-open.component';
 import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
 
 @Component({
-	selector: 'app-board',
-	templateUrl: './board.component.html'
+    selector: 'app-board',
+    templateUrl: './board.component.html',
+    standalone: false
 })
 export class BoardComponent implements OnInit {
 

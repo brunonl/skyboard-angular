@@ -5,8 +5,9 @@ import { Card } from 'src/app/interfaces/card';
 import { CardService } from 'src/app/services/card.service';
 
 @Component({
-	selector: 'app-modal-add',
-	templateUrl: './modal-add.component.html'
+    selector: 'app-modal-add',
+    templateUrl: './modal-add.component.html',
+    standalone: false
 })
 export class ModalAddComponent implements OnInit {
 

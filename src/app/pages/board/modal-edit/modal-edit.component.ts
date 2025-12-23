@@ -5,8 +5,9 @@ import { Card } from 'src/app/interfaces/card';
 import { CardService } from 'src/app/services/card.service';
 
 @Component({
-	selector: 'app-modal-edit',
-	templateUrl: './modal-edit.component.html'
+    selector: 'app-modal-edit',
+    templateUrl: './modal-edit.component.html',
+    standalone: false
 })
 export class ModalEditComponent implements OnInit {
 

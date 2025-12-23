@@ -15,7 +15,8 @@ import { LoginService } from './services/login.service';
  */
 @Component({
 	selector: 'app-root',
-	templateUrl: './app.component.html'
+	templateUrl: './app.component.html',
+	standalone: false
 })
 export class AppComponent implements OnInit {
 
@@ -25,15 +26,7 @@ export class AppComponent implements OnInit {
 
 	async ngOnInit(): Promise<void> {
 		// Verifica se há uma sessão ativa
-		const isLoggedIn = await this.loginService.isLoggedIn();
-
-		if (isLoggedIn) {
-			console.log('Usuário já está logado!');
-		} else {
-			console.log('Usuário não está logado.');
-			// TODO: Implementar redirecionamento para página de login
-			// Por enquanto, vamos trabalhar sem autenticação para testar o Supabase
-		}
+		// TODO: Implementar redirecionamento para página de login quando necessário
+		await this.loginService.isLoggedIn();
 	}
 }
-

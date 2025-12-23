@@ -1,17 +1,19 @@
-@import 'bootstrap-scss/bootstrap';
+// Bootstrap from npm (v5.3.8) - updated version without deprecation warnings
+@import 'bootstrap/scss/bootstrap';
 
-@import '_variables.scss';
-@import '_forms.scss';
-@import '_buttons.scss';
-@import '_general.scss';
-@import '_fonts.scss';
-@import '_icons.scss';
+// Custom styles
+@import 'variables';
+@import 'forms';
+@import 'buttons';
+@import 'general';
+@import 'fonts';
+@import 'icons';
 
-//Components
-@import 'components/_modal.scss';
-@import 'components/_card.scss';
-@import 'components/_header.scss';
-@import 'components/_footer.scss';
+// Components
+@import 'components/modal';
+@import 'components/card';
+@import 'components/header';
+@import 'components/footer';
 
-//Pages
-@import 'pages/_board.scss';
+// Pages
+@import 'pages/board';

@@ -16,9 +16,18 @@ export class SupabaseService {
 
     constructor() {
         // Cria o cliente Supabase usando as credenciais do environment
+        // lock: Disables Navigator Lock API to avoid timeout errors in development
         this.supabase = createClient(
             environment.supabaseUrl,
-            environment.supabaseKey
+            environment.supabaseKey,
+            {
+                auth: {
+                    lock: async (name: string, acquireTimeout: number, fn: () => Promise<any>) => {
+                        // Simple lock implementation without Navigator.locks API
+                        return await fn();
+                    }
+                }
+            }
         );
     }
 
