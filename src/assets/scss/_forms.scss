@@ -1,11 +1,27 @@
 .form-control {
     border-radius: 0;
-    background: rgb(44, 44, 50);
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.15);
     color: $white;
+    padding: 10px 12px;
+    font-size: 13px;
+    width: 100%;
+    transition: all 200ms ease;
+
+    &::placeholder {
+        color: rgba(255, 255, 255, 0.4);
+    }
 
     &:focus {
         color: $white;
-        background: rgb(44, 44, 50);
-        filter: brightness(1.3)
+        background: rgba(255, 255, 255, 0.08);
+        border-color: $primary;
+        box-shadow: 0 0 0 2px rgba($primary, 0.15);
+        outline: none;
     }
+}
+
+textarea.form-control {
+    min-height: 100px;
+    resize: vertical;
 }

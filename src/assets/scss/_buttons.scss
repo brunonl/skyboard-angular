@@ -1,9 +1,15 @@
+// ============================================
+// BUTTON STYLES
+// Global button configuration
+// ============================================
+
 .btn-primary {
     background-color: $primary;
-    border-color: $primary;
+    border: 1px solid $primary;
     color: $black;
     font-size: 12px;
     border-radius: 0;
+    padding: 6px 12px;
 
     &:hover,
     &:active,
@@ -11,37 +17,37 @@
         background-color: $primary;
         border-color: $primary;
         color: $black;
-        box-shadow: rgb(0 0 0 / 15%) 0px 0px 0px;
         filter: brightness(1.25);
-        transition: box-shadow 300ms ease 0s, filter 300ms ease 0s;
+        box-shadow: none;
     }
 }
 
 .btn-secondary {
-    background-color: $secondary;
-    border-color: $white;
+    background-color: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
     color: $white;
     font-size: 12px;
     border-radius: 0;
+    padding: 6px 12px;
+    transition: all 200ms ease;
 
     &:hover,
     &:active,
     &:focus {
-        background-color: $secondary;
-        border-color: $white;
+        background-color: rgba(255, 255, 255, 0.15);
+        border-color: rgba(255, 255, 255, 0.35);
         color: $white;
-        box-shadow: rgb(0 0 0 / 15%) 0px 0px 0px;
-        filter: brightness(1.25);
-        transition: box-shadow 300ms ease 0s, filter 300ms ease 0s;
+        box-shadow: none;
     }
 }
 
 .btn-danger {
     background-color: $danger;
-    border-color: $danger;
+    border: 1px solid $danger;
     color: $white;
     font-size: 12px;
     border-radius: 0;
+    padding: 6px 12px;
 
     &:hover,
     &:active,
@@ -49,8 +55,7 @@
         background-color: $danger;
         border-color: $danger;
         color: $white;
-        box-shadow: rgb(0 0 0 / 15%) 0px 0px 0px;
         filter: brightness(1.25);
-        transition: box-shadow 300ms ease 0s, filter 300ms ease 0s;
+        box-shadow: none;
     }
 }
