@@ -2,10 +2,13 @@
 
 Um quadro Kanban desenvolvido para demonstrar habilidades avançadas em **Angular** e **Arquitetura Front-end**, integrando design moderno com persistência de dados em tempo real.
 
+🔗 **[Acesse a demonstração ao vivo](https://skyboard-angular.vercel.app/)**
+
 ![Angular](https://img.shields.io/badge/Angular-19-dd0031?style=for-the-badge&logo=angular&logoColor=white)
 ![TypeScript](https://img.shields.io/badge/TypeScript-5-3178c6?style=for-the-badge&logo=typescript&logoColor=white)
 ![Supabase](https://img.shields.io/badge/Supabase-Database-3ecf8e?style=for-the-badge&logo=supabase&logoColor=white)
 ![Sass](https://img.shields.io/badge/Sass-SCSS-c69?style=for-the-badge&logo=sass&logoColor=white)
+[![Live Demo](https://img.shields.io/badge/demo-online-181717?style=for-the-badge&logo=vercel&logoColor=white)](https://skyboard-angular.vercel.app/)
 
 ---
 
