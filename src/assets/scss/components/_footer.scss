@@ -5,7 +5,6 @@ footer {
     height: 50px;
     z-index: 1000;
 
-    // Glassmorphism
     background-color: rgba($bg-app, 0.85);
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
@@ -17,7 +16,7 @@ footer {
 
     p {
         margin: 0;
-        font-size: 0.875rem;
+        font-size: 14px;
         color: $text-tertiary;
         font-weight: $font-weight-medium;
         letter-spacing: 0.02em;

@@ -6,7 +6,6 @@ header {
         padding: 0 24px;
         z-index: 1000;
 
-        // Glassmorphism
         background-color: rgba($bg-app, 0.85);
         backdrop-filter: blur(12px);
         -webkit-backdrop-filter: blur(12px);
@@ -17,13 +16,9 @@ header {
         justify-content: space-between;
 
         &__logo {
-            height: 32px; // Slightly smaller, more elegant
+            height: 32px;
             width: auto;
-            transition: transform $duration-fast $ease-spring;
-
-            &:hover {
-                transform: scale(1.05);
-            }
+            transition: opacity $duration-fast ease;
         }
     }
 }

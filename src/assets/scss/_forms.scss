@@ -1,10 +1,10 @@
 .form-control {
-    border-radius: 0; // FLAT DESIGN - No Radius
+    border-radius: 0;
     background: rgba($bg-surface, 0.5);
     border: 1px solid $border-light;
     color: $text-primary;
     padding: 10px 16px;
-    font-size: 0.875rem;
+    font-size: 14px;
     width: 100%;
     transition: all $duration-fast ease;
 

@@ -1,36 +1,16 @@
-// ============================================
-// Main SCSS Entry Point
-// Organized structure separating vendor from project styles
-// ============================================
-
-// ============================================
-// 1. VENDOR - Third-party libraries (Bootstrap)
-// ============================================
 @import 'bootstrap-scss/bootstrap';
 
-// ============================================
-// 2. BASE - Project foundation
-// ============================================
-@import 'variables'; // Custom variables (colors, spacing, etc.)
-@import 'fonts'; // Font-face declarations
-@import 'general'; // Reset, body, scrollbars, etc.
+@import 'variables';
+@import 'fonts';
+@import 'general';
 
-// ============================================
-// 3. OVERRIDES - Bootstrap customizations
-// ============================================
-@import 'forms'; // Form controls overrides
-@import 'buttons'; // Button style overrides
-@import 'icons'; // Icon styles
+@import 'forms';
+@import 'buttons';
+@import 'icons';
 
-// ============================================
-// 4. COMPONENTS - Reusable UI components
-// ============================================
 @import 'components/modal';
 @import 'components/card';
 @import 'components/header';
 @import 'components/footer';
 
-// ============================================
-// 5. PAGES - Page-specific styles
-// ============================================
 @import 'pages/board';

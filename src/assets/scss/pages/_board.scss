@@ -2,7 +2,6 @@
     position: relative;
     height: 100%;
 
-    // Modern Loading Overlay
     &__loading {
         position: fixed;
         inset: 0;
@@ -23,16 +22,15 @@
         }
     }
 
-    // Board Header / Actions
     &__nav {
         display: flex;
         justify-content: space-between;
         align-items: center;
-        margin-bottom: 12px; // Reduced from 24px
+        margin-bottom: 12px;
         padding: 0 8px;
 
         &__title {
-            font-size: 1.125rem; // Reduced from 1.5rem (18px)
+            font-size: 18px;
             font-weight: $font-weight-bold;
             color: $text-primary;
             margin: 0;
@@ -40,7 +38,6 @@
         }
     }
 
-    // Board Columns Container
     &__row {
         display: flex;
         flex-wrap: nowrap;
@@ -48,13 +45,12 @@
         overflow-y: hidden;
         gap: 0;
         align-items: stretch;
-        height: calc(100vh - 70px - 50px - 15px); // Header (70) + Footer (50) + Buffer
+        height: calc(100vh - 70px - 50px - 15px);
         min-height: calc(100vh - 135px);
         padding-bottom: 0;
         margin: 0;
         padding-left: 0;
 
-        // Target Bootstrap columns to force Kanban behavior
         >[class*='col-'] {
             flex: 1;
             min-width: 300px;
@@ -74,9 +70,8 @@
         }
     }
 
-    // Individual Column
     &__col {
-        background-color: lighten($bg-app, 4%); // Softer contrast (was 7%)
+        background-color: lighten($bg-app, 4%);
         border-radius: 0;
         display: flex;
         flex-direction: column;
@@ -85,6 +80,7 @@
         border: none;
         box-shadow: none;
         transition: none;
+        animation: none;
 
         &:hover {
             box-shadow: none;
@@ -93,14 +89,14 @@
         }
 
         &__title {
-            padding: 12px 12px;
+            padding: 16px 16px;
             font-weight: $font-weight-bold;
-            font-size: 0.8rem;
+            font-size: 13px;
             text-transform: uppercase;
             letter-spacing: 0.05em;
             color: $white;
             border-bottom: 2px solid $bg-app;
-            background: lighten($bg-app, 8%); // Softer header
+            background: lighten($bg-app, 8%);
             border-radius: 0;
 
             display: flex;
@@ -112,9 +108,8 @@
             padding: 16px;
             flex: 1;
             overflow-y: auto;
-            background-color: rgba(0, 0, 0, 0.2); // Darker content area for depth
+            background-color: rgba(0, 0, 0, 0.2);
 
-            // Custom scrollbar
             &::-webkit-scrollbar {
                 width: 6px;
             }

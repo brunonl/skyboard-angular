@@ -9,22 +9,18 @@ body {
 
 body {
     background-color: $bg-app;
-    // Subtle mesh/noise effect could be added here
-    background-image:
-        radial-gradient(circle at 15% 50%, rgba($primary, 0.08), transparent 25%),
-        radial-gradient(circle at 85% 30%, rgba($success, 0.05), transparent 25%);
+    background-image: none;
     background-attachment: fixed;
     color: $text-primary;
 }
 
 main {
-    padding: 85px 24px 60px 24px; // Increased side padding
+    padding: 80px 24px 50px 24px;
     min-height: calc(100vh - 70px);
     max-width: 1600px;
     margin: 0 auto;
 }
 
-// Modern Scrollbar
 ::-webkit-scrollbar {
     width: 6px;
     height: 6px;
@@ -36,14 +32,13 @@ main {
 
 ::-webkit-scrollbar-thumb {
     background: $bg-surface-elevated;
-    border-radius: 0; // FLAT DESIGN
+    border-radius: 0;
 
     &:hover {
         background: $text-tertiary;
     }
 }
 
-// Firefox
 * {
     scrollbar-width: thin;
     scrollbar-color: $bg-surface-elevated transparent;
