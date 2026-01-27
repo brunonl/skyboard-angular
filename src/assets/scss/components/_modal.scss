@@ -70,14 +70,20 @@
 }
 
 .modal.fade {
+    opacity: 1 !important;
     transition: none !important;
 
     .modal-dialog {
         transition: none !important;
         transform: none !important;
     }
+
+    &.show .modal-dialog {
+        transform: none !important;
+    }
 }
 
 .modal-backdrop.fade {
+    opacity: 0.7 !important;
     transition: none !important;
 }

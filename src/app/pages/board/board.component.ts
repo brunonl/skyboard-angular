@@ -11,9 +11,9 @@ import { ModalOpenComponent } from './modal-open/modal-open.component';
 import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
 
 @Component({
-    selector: 'app-board',
-    templateUrl: './board.component.html',
-    standalone: false
+	selector: 'app-board',
+	templateUrl: './board.component.html',
+	standalone: false
 })
 export class BoardComponent implements OnInit {
 
@@ -45,6 +45,7 @@ export class BoardComponent implements OnInit {
 
 	openModalOpen(card: Card) {
 		const initialState: ModalOptions = {
+			animated: false,
 			initialState: {
 				card: card,
 				onAdd: this.addCardToList.bind(this)
@@ -55,6 +56,7 @@ export class BoardComponent implements OnInit {
 
 	openModalAdd() {
 		const initialState: ModalOptions = {
+			animated: false,
 			initialState: {
 				toDoList: this.toDoList,
 				onAdd: this.addCardToList.bind(this)
@@ -65,6 +67,7 @@ export class BoardComponent implements OnInit {
 
 	openModalEdit(card: Card) {
 		const initialState: ModalOptions = {
+			animated: false,
 			initialState: {
 				card: card,
 				onEdit: this.updateCardBoardOnCallbackService.bind(this)
@@ -75,6 +78,7 @@ export class BoardComponent implements OnInit {
 
 	openModalDelete(card: Card) {
 		const initialState: ModalOptions = {
+			animated: false,
 			initialState: {
 				description: 'You have shure that you want remove this card?',
 				title: 'Delete Card',
