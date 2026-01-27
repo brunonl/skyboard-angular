@@ -1,27 +1,22 @@
-$way-font-path: '/assets/fonts' !default;
+// ============================================
+// Typography
+// ============================================
+// Fonts are imported via Google Fonts in styles.scss
+// Family: 'Inter', sans-serif
 
-@mixin fontFace($family,$url){
-  @font-face {
-    font-family: $family;
-    src: url('#{$url}');
-  }
+// Helper classes for weights if needed
+.font-light {
+  font-weight: $font-weight-light !important;
 }
 
-@include fontFace('lato-regular', '#{$way-font-path}/Lato/Lato-Regular.ttf');
-@include fontFace('lato-bold', '#{$way-font-path}/Lato/Lato-Bold.ttf');
-@include fontFace('lato-black', '#{$way-font-path}/Lato/Lato-Black.ttf');
-
-.lato-regular {
-  font-family: 'lato-regular' !important;
-  font-weight: 400;
+.font-regular {
+  font-weight: $font-weight-regular !important;
 }
 
-.lato-bold {
-  font-family: 'lato-bold' !important;
-  font-weight: 700;
+.font-medium {
+  font-weight: $font-weight-medium !important;
 }
 
-.lato-black {
-  font-family: 'lato-black' !important;
-  font-weight: 700;
+.font-bold {
+  font-weight: $font-weight-bold !important;
 }

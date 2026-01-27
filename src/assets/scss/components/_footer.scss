@@ -3,13 +3,23 @@ footer {
     bottom: 0;
     width: 100%;
     height: 50px;
+    z-index: 1000;
+
+    // Glassmorphism
+    background-color: rgba($bg-app, 0.85);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-top: 1px solid $border-light;
+
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 14px;
-    background-color: $black-70;
 
     p {
         margin: 0;
+        font-size: 0.875rem;
+        color: $text-tertiary;
+        font-weight: $font-weight-medium;
+        letter-spacing: 0.02em;
     }
 }

@@ -1,61 +1,78 @@
 // ============================================
 // BUTTON STYLES
-// Global button configuration
+// Modern button configuration
 // ============================================
 
-.btn-primary {
-    background-color: $primary;
-    border: 1px solid $primary;
-    color: $black;
-    font-size: 12px;
+// Base Button Mixin
+@mixin btn-base {
+    font-size: 0.8rem; // Reduced from 0.875rem
+    font-weight: $font-weight-medium;
     border-radius: 0;
-    padding: 6px 12px;
+    padding: 6px 16px; // Reduced padding
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    transition: all $duration-fast ease;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    box-shadow: none;
 
-    &:hover,
-    &:active,
+    &:active {
+        transform: translateY(1px);
+    }
+}
+
+.btn-primary {
+    @include btn-base;
+    background-color: $primary;
+    border: 1px solid transparent;
+    color: $bg-app; // Contrast text
+
+    &:hover {
+        background-color: $primary-hover;
+        color: $bg-app;
+    }
+
     &:focus {
-        background-color: $primary;
-        border-color: $primary;
-        color: $black;
-        filter: brightness(1.25);
-        box-shadow: none;
+        background-color: darken($primary, 5%); // Distinct focus state
+        box-shadow: 0 0 0 2px rgba($primary, 0.4); // Focus ring for accessibility
+        outline: none;
+        color: $bg-app;
     }
 }
 
 .btn-secondary {
-    background-color: rgba(255, 255, 255, 0.1);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    color: $white;
-    font-size: 12px;
-    border-radius: 0;
-    padding: 6px 12px;
-    transition: all 200ms ease;
+    @include btn-base;
+    background-color: rgba($bg-surface, 0.5);
+    border: 1px solid $border-light;
+    color: $text-secondary;
 
-    &:hover,
-    &:active,
+    &:hover {
+        background-color: rgba($bg-surface, 0.8);
+        border-color: $text-primary;
+        color: $text-primary;
+    }
+
     &:focus {
-        background-color: rgba(255, 255, 255, 0.15);
-        border-color: rgba(255, 255, 255, 0.35);
-        color: $white;
-        box-shadow: none;
+        background-color: $bg-surface-elevated; // Solid background on focus
+        border-color: $primary;
+        color: $text-primary;
+        box-shadow: 0 0 0 1px rgba($primary, 0.3);
+        outline: none;
     }
 }
 
 .btn-danger {
-    background-color: $danger;
-    border: 1px solid $danger;
-    color: $white;
-    font-size: 12px;
-    border-radius: 0;
-    padding: 6px 12px;
+    @include btn-base;
+    background-color: rgba($danger, 0.1);
+    border: 1px solid rgba($danger, 0.2);
+    color: $danger;
 
     &:hover,
-    &:active,
     &:focus {
         background-color: $danger;
-        border-color: $danger;
-        color: $white;
-        filter: brightness(1.25);
-        box-shadow: none;
+        color: white;
+        box-shadow: 0 0 10px rgba($danger, 0.4);
     }
 }

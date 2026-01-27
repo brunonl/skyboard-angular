@@ -2,32 +2,49 @@ html,
 body {
     height: 100%;
     margin: 0;
+    font-family: $font-family-base;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
 }
 
 body {
-    @extend .lato-regular;
-    background: $background;
-    color: $white;
+    background-color: $bg-app;
+    // Subtle mesh/noise effect could be added here
+    background-image:
+        radial-gradient(circle at 15% 50%, rgba($primary, 0.08), transparent 25%),
+        radial-gradient(circle at 85% 30%, rgba($success, 0.05), transparent 25%);
+    background-attachment: fixed;
+    color: $text-primary;
 }
 
 main {
-    padding: 85px 10px 60px 10px;
+    padding: 85px 24px 60px 24px; // Increased side padding
     min-height: calc(100vh - 70px);
+    max-width: 1600px;
+    margin: 0 auto;
 }
 
+// Modern Scrollbar
+::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+}
+
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+    background: $bg-surface-elevated;
+    border-radius: 0; // FLAT DESIGN
+
+    &:hover {
+        background: $text-tertiary;
+    }
+}
+
+// Firefox
 * {
     scrollbar-width: thin;
-    scrollbar-color: rgba(0, 0, 0, 0.3) rgba(0, 0, 0, 0.1);
-}
-
-*::-webkit-scrollbar {
-    width: 8px;
-}
-
-*::-webkit-scrollbar-track {
-    background-color: rgb(64, 64, 68);
-}
-
-*::-webkit-scrollbar-thumb {
-    background-color: rgb(38, 38, 42);
+    scrollbar-color: $bg-surface-elevated transparent;
 }

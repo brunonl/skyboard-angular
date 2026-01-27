@@ -2,90 +2,136 @@
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    background-color: $black-50;
-    margin-bottom: 10px;
-    border-radius: 3px;
-    cursor: move;
-    /* Adicionar cursor de drag */
+    background-color: $bg-surface-elevated;
+    margin-bottom: 16px; // Standard 16px rhythm
+    border-radius: 0; // FLAT DESIGN - No Radius
+    border: none; // Clean look - No Border
+    border-left: 3px solid transparent; // Ready for status color if needed
+    cursor: grab;
+    transition: transform $duration-fast ease, box-shadow $duration-fast ease;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2); // Very subtle lift
+    position: relative;
+    overflow: visible;
 
+    &:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3); // Stronger lift
+        background-color: lighten($bg-surface-elevated, 3%);
+        // Border left removed
+    }
+
+    &:active {
+        cursor: grabbing;
+    }
+
+    // Navigation Arrows (Left/Right)
     &__toleft,
     &__toright {
         display: flex;
         align-items: center;
         justify-content: center;
-        width: 10%;
-        padding: 10px;
-        transition: .8s;
+        width: 32px; // More space for icon
+        padding: 0;
+        transition: opacity $duration-fast ease, background-color $duration-fast ease;
         cursor: pointer;
+        opacity: 0;
+        color: $text-secondary;
+        background: transparent;
+        overflow: hidden;
+
+        // Icons inside
+        i,
+        svg {
+            min-width: 24px;
+        }
+
+        &:hover {
+            opacity: 1;
+            background: rgba($bg-app, 0.8);
+            color: $primary;
+        }
+    }
+
+    // Show arrows (Opacity only)
+    &:hover &__toleft,
+    &:hover &__toright {
+        opacity: 1;
     }
 
     &__toleft {
-        &:hover {
-            background: #202024;
-            border-radius: 4px 0 0 4px;
-        }
+        border-right: 1px solid rgba(255, 255, 255, 0.05);
     }
 
     &__toright {
-        &:hover {
-            background: #202024;
-            border-radius: 0 4px 4px 0;
-        }
+        border-left: 1px solid rgba(255, 255, 255, 0.05);
     }
 
+    // Card Content
     &__content {
-        width: 80%;
-        padding: 15px;
+        flex: 1;
+        padding: 16px;
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
 
         &__title {
-            @extend .lato-bold;
-            font-size: 12px;
-            font-weight: 700;
+            font-size: 0.9375rem; // 15px
+            font-weight: $font-weight-medium;
+            color: $text-primary;
+            line-height: 1.4;
+            margin-bottom: 4px;
         }
 
         &__description {
-            font-size: 14px;
+            font-size: 0.8125rem; // 13px
+            color: $text-secondary;
             display: -webkit-box;
-            -webkit-line-clamp: 2;
+            -webkit-line-clamp: 3;
+            line-clamp: 3;
             -webkit-box-orient: vertical;
             overflow: hidden;
             text-overflow: ellipsis;
-            margin-bottom: 10px;
+            line-height: 1.5;
         }
 
         &__footer {
-            text-align: right;
-            border-top: 1px solid rgb(44 44 50);
+            margin-top: 12px;
+            padding-top: 0; // Remove separation line padding
+            border-top: none; // REMOVED LINE
+            display: flex;
+            justify-content: flex-end;
+
+            button {
+                font-size: 0.75rem;
+                padding: 4px 8px;
+                text-transform: uppercase;
+                letter-spacing: 0.05em;
+                opacity: 0.7;
+
+                &:hover {
+                    opacity: 1;
+                }
+            }
         }
     }
 }
 
-.disabled--arrow {
-    i {
-        &::before {
-            opacity: .2;
-        }
-    }
-
-    &:hover {
-        background: #2c2c32;
-        box-shadow: none;
-    }
-}
-
-// Drag and Drop styles
-.drag-item {
-    cursor: move;
-}
-
+// Drag State Styles
 .cdk-drag-preview {
     box-sizing: border-box;
-    box-shadow: 0 5px 20px rgba(0, 174, 239, 0.5);
-    opacity: 0.8;
+    border-radius: $radius-md;
+    box-shadow: $shadow-lg, $shadow-glow;
+    background-color: $bg-surface-elevated;
+    opacity: 0.95;
+    transform: scale(1.02);
+    z-index: 9999 !important;
 }
 
 .cdk-drag-placeholder {
-    opacity: 0.3;
+    opacity: 0.2;
+    background: rgba($primary, 0.1);
+    border: 2px dashed rgba($primary, 0.3);
+    border-radius: $radius-md;
 }
 
 .cdk-drag-animating {
