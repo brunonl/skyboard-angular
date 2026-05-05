@@ -2,94 +2,100 @@ name: Keep Supabase Alive
 
 on:
   schedule:
-    # Runs at 00:00 UTC every 3 days
-    - cron: '0 0 */3 * *'
-  workflow_dispatch: # Allows manual trigger
+    # Runs every 3 days at 09:17 UTC
+    # Supabase pauses after 7 days of inactivity - 3 days gives comfortable margin
+    - cron: '17 9 */3 * *'
+  workflow_dispatch:
 
 jobs:
-  ping-supabase:
+  keep-alive:
     runs-on: ubuntu-latest
+    env:
+      SUPABASE_PROJECT_REFS: "uuihxuerkwopjoeoervr"
     steps:
       - name: Validate Secrets
         run: |
-          if [ -z "${{ secrets.SUPABASE_URL }}" ]; then
-            echo "❌ ERRO: Secret SUPABASE_URL não está configurada!"
-            echo "Configure em: Settings → Secrets and variables → Actions"
+          MISSING=""
+          [ -z "${{ secrets.SUPABASE_ACCESS_TOKEN }}" ]    && MISSING="$MISSING SUPABASE_ACCESS_TOKEN"
+          [ -z "${{ secrets.SUPABASE_URL }}" ]             && MISSING="$MISSING SUPABASE_URL"
+          [ -z "${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}" ] && MISSING="$MISSING SUPABASE_SERVICE_ROLE_KEY"
+          if [ -n "$MISSING" ]; then
+            echo "❌ Secrets ausentes:$MISSING"
             exit 1
           fi
-          if [ -z "${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}" ]; then
-            echo "❌ ERRO: Secret SUPABASE_SERVICE_ROLE_KEY não está configurada!"
-            echo "Configure em: Settings → Secrets and variables → Actions"
-            exit 1
-          fi
-          echo "✅ Secrets configuradas corretamente."
+          echo "✅ Secrets OK."
 
-      - name: Ping Supabase Database
+      - name: Ping Database & Keep Alive
         run: |
-          MAX_RETRIES=3
-          RETRY_DELAY=30
-          SUCCESS=false
+          OVERALL_SUCCESS=true
 
-          for attempt in $(seq 1 $MAX_RETRIES); do
-            echo "🔄 Tentativa $attempt de $MAX_RETRIES..."
+          for PROJECT_REF in $SUPABASE_PROJECT_REFS; do
+            echo ""
+            echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+            echo "📦 Projeto: $PROJECT_REF"
+            echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
 
-            response=$(curl -s -w "\n%{http_code}" \
-              --max-time 30 \
-              --connect-timeout 10 \
+            # Ping the REST API - generates activity and resets Supabase's inactivity timer
+            echo "📡 Pingando banco para resetar timer de inatividade..."
+
+            ping_http=$(curl -s -o /dev/null -w "%{http_code}" \
+              --max-time 20 \
               -X GET \
-              "${{ secrets.SUPABASE_URL }}/rest/v1/cards?select=id&limit=1" \
+              "${{ secrets.SUPABASE_URL }}/rest/v1/" \
               -H "apikey: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}" \
-              -H "Authorization: Bearer ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}")
+              -H "Authorization: Bearer ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}" \
+              -H "Accept: application/json")
 
-            curl_exit=$?
+            echo "📡 Ping status: HTTP $ping_http"
 
-            if [ $curl_exit -ne 0 ]; then
-              echo "⚠️ curl falhou com código de saída $curl_exit"
-              if [ $attempt -lt $MAX_RETRIES ]; then
-                echo "Aguardando ${RETRY_DELAY}s antes de tentar novamente..."
-                sleep $RETRY_DELAY
-                continue
+            if [ "$ping_http" -ge 200 ] 2>/dev/null && [ "$ping_http" -lt 300 ] 2>/dev/null; then
+              echo "✅ Banco respondendo! Timer de inatividade resetado."
+              continue
+            fi
+
+            # FALLBACK: Ping failed - project might be paused. Check & restore.
+            echo "⚠️ Ping falhou (HTTP $ping_http). Verificando status via Management API..."
+
+            status_response=$(curl -s --max-time 30 \
+              -H "Authorization: Bearer ${{ secrets.SUPABASE_ACCESS_TOKEN }}" \
+              "https://api.supabase.com/v1/projects/$PROJECT_REF")
+
+            project_status=$(echo "$status_response" | grep -o '"status":"[^"]*"' | head -1 | cut -d'"' -f4)
+            project_name=$(echo "$status_response"  | grep -o '"name":"[^"]*"'   | head -1 | cut -d'"' -f4)
+            echo "📌 Status: $project_status ($project_name)"
+
+            if [ "$project_status" = "INACTIVE" ] || [ "$project_status" = "PAUSED" ]; then
+              echo "🔄 Projeto pausado! Restaurando automaticamente..."
+
+              restore_http=$(curl -s -o /dev/null -w "%{http_code}" \
+                --max-time 60 \
+                -X POST \
+                -H "Authorization: Bearer ${{ secrets.SUPABASE_ACCESS_TOKEN }}" \
+                -H "Content-Type: application/json" \
+                "https://api.supabase.com/v1/projects/$PROJECT_REF/restore")
+
+              if [ "$restore_http" -ge 200 ] 2>/dev/null && [ "$restore_http" -lt 300 ] 2>/dev/null; then
+                echo "🚀 Restauração iniciada! (HTTP $restore_http)"
+                echo "⏳ O projeto ficará ativo em poucos minutos."
+                echo "   A próxima execução (em 3 dias) irá manter ativo via ping normal."
+              else
+                echo "❌ Falha na restauração! HTTP $restore_http"
+                OVERALL_SUCCESS=false
               fi
-              echo "❌ FALHA: Não foi possível conectar ao Supabase após $MAX_RETRIES tentativas!"
-              echo "Possíveis causas:"
-              echo "  - Projeto Supabase está pausado"
-              echo "  - URL incorreta"
-              echo "  - Problema de rede"
-              exit 1
-            fi
 
-            body=$(echo "$response" | head -n -1)
-            http_code=$(echo "$response" | tail -n1)
-
-            echo "HTTP Status: $http_code"
-            echo "Response body: $body"
-
-            if [ "$http_code" -ge 200 ] 2>/dev/null && [ "$http_code" -lt 300 ] 2>/dev/null; then
-              echo "✅ Ping bem-sucedido! HTTP $http_code"
-              echo "Timestamp: $(date -u '+%Y-%m-%d %H:%M:%S UTC')"
-              SUCCESS=true
-              break
-            fi
-
-            if [ "$http_code" -eq 0 ] 2>/dev/null || ! [ "$http_code" -eq "$http_code" ] 2>/dev/null; then
-              echo "⚠️ Resposta inválida recebida"
+            elif [ "$project_status" = "RESTORING" ] || [ "$project_status" = "COMING_UP" ]; then
+              echo "⏳ Projeto em restauração ($project_status). Aguarde a próxima execução."
             else
-              echo "⚠️ HTTP $http_code - Resposta não-2xx"
-            fi
-
-            if [ $attempt -lt $MAX_RETRIES ]; then
-              echo "Aguardando ${RETRY_DELAY}s antes de tentar novamente..."
-              sleep $RETRY_DELAY
+              echo "❌ Status inesperado: '$project_status'. Investigar manualmente."
+              OVERALL_SUCCESS=false
             fi
           done
 
-          if [ "$SUCCESS" != "true" ]; then
-            echo ""
-            echo "❌ FALHA: Ping falhou após $MAX_RETRIES tentativas!"
-            echo "🔴 O projeto Supabase pode estar pausado ou inacessível."
-            echo "Ações necessárias:"
-            echo "  1. Verifique o dashboard: https://supabase.com/dashboard"
-            echo "  2. Se pausado, restaure o projeto manualmente"
-            echo "  3. Verifique se os secrets estão corretos"
+          echo ""
+          echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+          if [ "$OVERALL_SUCCESS" = "true" ]; then
+            echo "✅ Concluído! $(date -u '+%Y-%m-%d %H:%M:%S UTC')"
+          else
+            echo "❌ Falhou. Verifique os logs acima."
             exit 1
           fi
